@@ -9,6 +9,7 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 | [**findAllInvoices()**](InvoicesApi.md#findAllInvoices) | **GET** /invoices/ | Find all invoices |
 | [**findInvoice()**](InvoicesApi.md#findInvoice) | **GET** /invoices/{id} | Find invoice by ID |
 | [**refreshInvoice()**](InvoicesApi.md#refreshInvoice) | **PUT** /invoices/{id}/refresh | Refresh a draft invoice |
+| [**retryPayment()**](InvoicesApi.md#retryPayment) | **POST** /invoices/{id}/retry_payment | Retry invoice payment |
 | [**updateInvoice()**](InvoicesApi.md#updateInvoice) | **PUT** /invoices/{id} | Update an existing invoice status |
 
 
@@ -308,6 +309,65 @@ try {
 ### Return type
 
 [**\OpenAPI\Client\Model\Invoice**](../Model/Invoice.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `retryPayment()`
+
+```php
+retryPayment($id)
+```
+
+Retry invoice payment
+
+Retry invoice payment
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new OpenAPI\Client\Api\InvoicesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$id = 183da83c-c007-4fbb-afcd-b00c07c41ffe; // string | ID of the existing Lago Invoice
+
+try {
+    $apiInstance->retryPayment($id);
+} catch (Exception $e) {
+    echo 'Exception when calling InvoicesApi->retryPayment: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | **string**| ID of the existing Lago Invoice | |
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
