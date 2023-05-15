@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**external_customer_id** | **string** |  | [optional]
-**coupon_code** | **string** |  | [optional]
+**external_customer_id** | **string** |  |
+**coupon_code** | **string** |  |
 **frequency** | **string** | Frequency type | [optional]
 **frequency_duration** | **int** |  | [optional]
 **amount_cents** | **int** |  | [optional]

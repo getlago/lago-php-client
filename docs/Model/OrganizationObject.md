@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **lago_id** | **string** |  | [optional]
-**name** | **string** |  | [optional]
-**created_at** | **string** |  | [optional]
+**name** | **string** |  |
+**created_at** | **\DateTime** |  |
 **webhook_url** | **string** |  | [optional]
 **country** | **string** |  | [optional]
 **address_line1** | **string** |  | [optional]
 **address_line2** | **string** |  | [optional]
 **state** | **string** |  | [optional]
-**zipode** | **string** |  | [optional]
+**zipcode** | **string** |  | [optional]
 **email** | **string** |  | [optional]
 **city** | **string** |  | [optional]
 **legal_name** | **string** |  | [optional]

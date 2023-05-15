@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**external_id** | **string** |  | [optional]
+**external_id** | **string** |  |
 **name** | **string** |  | [optional]
 **country** | **string** |  | [optional]
 **address_line1** | **string** |  | [optional]
 **address_line2** | **string** |  | [optional]
 **state** | **string** |  | [optional]
-**zipode** | **string** |  | [optional]
+**zipcode** | **string** |  | [optional]
 **email** | **string** |  | [optional]
 **city** | **string** |  | [optional]
 **url** | **string** |  | [optional]
@@ -21,5 +21,6 @@ Name | Type | Description | Notes
 **currency** | **string** |  | [optional]
 **timezone** | **string** |  | [optional]
 **billing_configuration** | [**\OpenAPI\Client\Model\BillingConfigurationCustomer**](BillingConfigurationCustomer.md) |  | [optional]
+**metadata** | [**\OpenAPI\Client\Model\CustomerInputCustomerMetadataInner[]**](CustomerInputCustomerMetadataInner.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

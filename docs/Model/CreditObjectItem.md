@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**lago_id** | **string** |  | [optional]
-**type** | **string** |  | [optional]
-**code** | **string** |  | [optional]
-**name** | **string** |  | [optional]
+**lago_id** | **string** |  |
+**type** | **string** |  |
+**code** | **string** |  |
+**name** | **string** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

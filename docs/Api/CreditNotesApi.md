@@ -6,7 +6,7 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 | ------------- | ------------- | ------------- |
 | [**createCreditNote()**](CreditNotesApi.md#createCreditNote) | **POST** /credit_notes | Create a new Credit note |
 | [**downloadCreditNote()**](CreditNotesApi.md#downloadCreditNote) | **POST** /credit_notes/{id}/download | Download an existing credit note |
-| [**findAllCreditNotes()**](CreditNotesApi.md#findAllCreditNotes) | **GET** /credit_notes/ | Find Credit notes |
+| [**findAllCreditNotes()**](CreditNotesApi.md#findAllCreditNotes) | **GET** /credit_notes | Find Credit notes |
 | [**findCreditNote()**](CreditNotesApi.md#findCreditNote) | **GET** /credit_notes/{id} | Find credit note |
 | [**updateCreditNote()**](CreditNotesApi.md#updateCreditNote) | **PUT** /credit_notes/{id} | Update an existing credit note |
 | [**voidCreditNote()**](CreditNotesApi.md#voidCreditNote) | **PUT** /credit_notes/{id}/void | Void existing credit note |
@@ -99,7 +99,7 @@ $apiInstance = new OpenAPI\Client\Api\CreditNotesApi(
     new GuzzleHttp\Client(),
     $config
 );
-$id = 183da83c-c007-4fbb-afcd-b00c07c41ffe; // string | ID of the existing Lago Credit note
+$id = 1a901a90-1a90-1a90-1a90-1a901a901a90; // string | ID of the existing Lago Credit note
 
 try {
     $result = $apiInstance->downloadCreditNote($id);
@@ -345,7 +345,7 @@ $apiInstance = new OpenAPI\Client\Api\CreditNotesApi(
     new GuzzleHttp\Client(),
     $config
 );
-$id = 183da83c-c007-4fbb-afcd-b00c07c41ffe; // string | ID of the existing Lago Credit note
+$id = 1a901a90-1a90-1a90-1a90-1a901a901a90; // string | ID of the existing Lago Credit note
 
 try {
     $result = $apiInstance->voidCreditNote($id);

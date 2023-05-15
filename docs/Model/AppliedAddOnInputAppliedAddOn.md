@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**external_customer_id** | **string** |  | [optional]
-**add_on_code** | **string** |  | [optional]
+**external_customer_id** | **string** |  |
+**add_on_code** | **string** |  |
 **amount_cents** | **int** |  | [optional]
 **amount_currency** | **string** |  | [optional]
 

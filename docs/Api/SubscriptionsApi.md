@@ -6,7 +6,7 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 | ------------- | ------------- | ------------- |
 | [**createSubscription()**](SubscriptionsApi.md#createSubscription) | **POST** /subscriptions | Assign a plan to a customer |
 | [**destroySubscription()**](SubscriptionsApi.md#destroySubscription) | **DELETE** /subscriptions/{external_id} | Terminate a subscription |
-| [**findAllSubscriptions()**](SubscriptionsApi.md#findAllSubscriptions) | **GET** /subscriptions/ | Find subscriptions |
+| [**findAllSubscriptions()**](SubscriptionsApi.md#findAllSubscriptions) | **GET** /subscriptions | Find subscriptions |
 | [**updateSubscription()**](SubscriptionsApi.md#updateSubscription) | **PUT** /subscriptions/{external_id} | Update an existing subscription |
 
 
@@ -133,7 +133,7 @@ try {
 ## `findAllSubscriptions()`
 
 ```php
-findAllSubscriptions($external_customer_id, $page, $per_page): \OpenAPI\Client\Model\Subscriptions
+findAllSubscriptions($page, $per_page, $external_customer_id, $plan_code): \OpenAPI\Client\Model\SubscriptionsPaginated
 ```
 
 Find subscriptions
@@ -157,12 +157,13 @@ $apiInstance = new OpenAPI\Client\Api\SubscriptionsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$external_customer_id = 12345; // string | External customer ID
 $page = 2; // int | Number of page
 $per_page = 20; // int | Number of records per page
+$external_customer_id = 12345; // string | External customer ID
+$plan_code = example_code; // string | Code of the plan attached to the subscription
 
 try {
-    $result = $apiInstance->findAllSubscriptions($external_customer_id, $page, $per_page);
+    $result = $apiInstance->findAllSubscriptions($page, $per_page, $external_customer_id, $plan_code);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SubscriptionsApi->findAllSubscriptions: ', $e->getMessage(), PHP_EOL;
@@ -173,13 +174,14 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **external_customer_id** | **string**| External customer ID | |
 | **page** | **int**| Number of page | [optional] |
 | **per_page** | **int**| Number of records per page | [optional] |
+| **external_customer_id** | **string**| External customer ID | [optional] |
+| **plan_code** | **string**| Code of the plan attached to the subscription | [optional] |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Subscriptions**](../Model/Subscriptions.md)
+[**\OpenAPI\Client\Model\SubscriptionsPaginated**](../Model/SubscriptionsPaginated.md)
 
 ### Authorization
 

@@ -8,7 +8,7 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 | [**createAddOn()**](AddOnsApi.md#createAddOn) | **POST** /add_ons | Create a new add-on |
 | [**destroyAddOn()**](AddOnsApi.md#destroyAddOn) | **DELETE** /add_ons/{code} | Delete an add-on |
 | [**findAddOn()**](AddOnsApi.md#findAddOn) | **GET** /add_ons/{code} | Find add-on by code |
-| [**findAllAddOns()**](AddOnsApi.md#findAllAddOns) | **GET** /add_ons/ | Find add-ons |
+| [**findAllAddOns()**](AddOnsApi.md#findAllAddOns) | **GET** /add_ons | Find add-ons |
 | [**updateAddOn()**](AddOnsApi.md#updateAddOn) | **PUT** /add_ons/{code} | Update an existing add-on |
 
 
@@ -255,7 +255,7 @@ try {
 ## `findAllAddOns()`
 
 ```php
-findAllAddOns($page, $per_page): \OpenAPI\Client\Model\AddOns
+findAllAddOns($page, $per_page): \OpenAPI\Client\Model\AddOnsPaginated
 ```
 
 Find add-ons
@@ -299,7 +299,7 @@ try {
 
 ### Return type
 
-[**\OpenAPI\Client\Model\AddOns**](../Model/AddOns.md)
+[**\OpenAPI\Client\Model\AddOnsPaginated**](../Model/AddOnsPaginated.md)
 
 ### Authorization
 

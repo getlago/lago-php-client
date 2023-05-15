@@ -7,7 +7,7 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 | [**createBillableMetric()**](BillableMetricsApi.md#createBillableMetric) | **POST** /billable_metrics | Create a new billable metric |
 | [**destroyBillableMetric()**](BillableMetricsApi.md#destroyBillableMetric) | **DELETE** /billable_metrics/{code} | Delete a billable metric |
 | [**findAllBillableMetricGroups()**](BillableMetricsApi.md#findAllBillableMetricGroups) | **GET** /billable_metrics/{code}/groups | Find Billable metric groups |
-| [**findAllBillableMetrics()**](BillableMetricsApi.md#findAllBillableMetrics) | **GET** /billable_metrics/ | Find Billable metrics |
+| [**findAllBillableMetrics()**](BillableMetricsApi.md#findAllBillableMetrics) | **GET** /billable_metrics | Find Billable metrics |
 | [**findBillableMetric()**](BillableMetricsApi.md#findBillableMetric) | **GET** /billable_metrics/{code} | Find billable metric by code |
 | [**updateBillableMetric()**](BillableMetricsApi.md#updateBillableMetric) | **PUT** /billable_metrics/{code} | Update an existing billable metric |
 
@@ -135,7 +135,7 @@ try {
 ## `findAllBillableMetricGroups()`
 
 ```php
-findAllBillableMetricGroups($code, $page, $per_page): \OpenAPI\Client\Model\Groups
+findAllBillableMetricGroups($code, $page, $per_page): \OpenAPI\Client\Model\GroupsPaginated
 ```
 
 Find Billable metric groups
@@ -181,7 +181,7 @@ try {
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Groups**](../Model/Groups.md)
+[**\OpenAPI\Client\Model\GroupsPaginated**](../Model/GroupsPaginated.md)
 
 ### Authorization
 
@@ -199,7 +199,7 @@ try {
 ## `findAllBillableMetrics()`
 
 ```php
-findAllBillableMetrics($page, $per_page): \OpenAPI\Client\Model\BillableMetrics
+findAllBillableMetrics($page, $per_page): \OpenAPI\Client\Model\BillableMetricsPaginated
 ```
 
 Find Billable metrics
@@ -243,7 +243,7 @@ try {
 
 ### Return type
 
-[**\OpenAPI\Client\Model\BillableMetrics**](../Model/BillableMetrics.md)
+[**\OpenAPI\Client\Model\BillableMetricsPaginated**](../Model/BillableMetricsPaginated.md)
 
 ### Authorization
 

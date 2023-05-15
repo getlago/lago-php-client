@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**transaction_id** | **string** |  | [optional]
+**transaction_id** | **string** |  |
 **external_customer_id** | **string** |  | [optional]
-**code** | **string** |  | [optional]
+**code** | **string** |  |
 **timestamp** | **int** |  | [optional]
 **external_subscription_id** | **string** |  | [optional]
 **properties** | **object** |  | [optional]

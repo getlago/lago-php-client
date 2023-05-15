@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**wallet_id** | **string** |  | [optional]
+**wallet_id** | **string** |  |
 **paid_credits** | **float** |  | [optional]
 **granted_credits** | **float** |  | [optional]
 

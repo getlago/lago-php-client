@@ -7,8 +7,8 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 | [**applyCoupon()**](CouponsApi.md#applyCoupon) | **POST** /applied_coupons | Apply a coupon to a customer |
 | [**createCoupon()**](CouponsApi.md#createCoupon) | **POST** /coupons | Create a new coupon |
 | [**destroyCoupon()**](CouponsApi.md#destroyCoupon) | **DELETE** /coupons/{code} | Delete a coupon |
-| [**findAllAppliedCoupons()**](CouponsApi.md#findAllAppliedCoupons) | **GET** /applied_coupons/ | Find Applied Coupons |
-| [**findAllCoupons()**](CouponsApi.md#findAllCoupons) | **GET** /coupons/ | Find Coupons |
+| [**findAllAppliedCoupons()**](CouponsApi.md#findAllAppliedCoupons) | **GET** /applied_coupons | Find Applied Coupons |
+| [**findAllCoupons()**](CouponsApi.md#findAllCoupons) | **GET** /coupons | Find Coupons |
 | [**findCoupon()**](CouponsApi.md#findCoupon) | **GET** /coupons/{code} | Find coupon by code |
 | [**updateCoupon()**](CouponsApi.md#updateCoupon) | **PUT** /coupons/{code} | Update an existing coupon |
 
@@ -196,7 +196,7 @@ try {
 ## `findAllAppliedCoupons()`
 
 ```php
-findAllAppliedCoupons($page, $per_page, $status, $external_customer_id): \OpenAPI\Client\Model\AppliedCoupons
+findAllAppliedCoupons($page, $per_page, $status, $external_customer_id): \OpenAPI\Client\Model\AppliedCouponsPaginated
 ```
 
 Find Applied Coupons
@@ -244,7 +244,7 @@ try {
 
 ### Return type
 
-[**\OpenAPI\Client\Model\AppliedCoupons**](../Model/AppliedCoupons.md)
+[**\OpenAPI\Client\Model\AppliedCouponsPaginated**](../Model/AppliedCouponsPaginated.md)
 
 ### Authorization
 
@@ -262,7 +262,7 @@ try {
 ## `findAllCoupons()`
 
 ```php
-findAllCoupons($page, $per_page): \OpenAPI\Client\Model\Coupons
+findAllCoupons($page, $per_page): \OpenAPI\Client\Model\CouponsPaginated
 ```
 
 Find Coupons
@@ -306,7 +306,7 @@ try {
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Coupons**](../Model/Coupons.md)
+[**\OpenAPI\Client\Model\CouponsPaginated**](../Model/CouponsPaginated.md)
 
 ### Authorization
 

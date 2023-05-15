@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**invoice_id** | **string** |  | [optional]
-**reason** | **string** | Reason | [optional]
+**invoice_id** | **string** |  |
+**reason** | **string** | Reason |
 **description** | **string** |  | [optional]
-**credit_amount_cents** | **int** |  | [optional]
-**refund_amount_cents** | **int** |  | [optional]
-**items** | [**\OpenAPI\Client\Model\CreditNoteInputCreditNoteItemsInner[]**](CreditNoteInputCreditNoteItemsInner.md) |  | [optional]
+**credit_amount_cents** | **int** |  |
+**refund_amount_cents** | **int** |  |
+**items** | [**\OpenAPI\Client\Model\CreditNoteInputCreditNoteItemsInner[]**](CreditNoteInputCreditNoteItemsInner.md) |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

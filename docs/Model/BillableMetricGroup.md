@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **string** |  | [optional]
-**values** | [**\OpenAPI\Client\Model\BillableMetricGroupValuesInner[]**](BillableMetricGroupValuesInner.md) |  | [optional]
+**key** | **string** |  |
+**values** | [**\OpenAPI\Client\Model\BillableMetricGroupValuesInner[]**](BillableMetricGroupValuesInner.md) |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

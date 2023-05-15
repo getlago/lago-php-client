@@ -4,7 +4,7 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**updateOrganization()**](OrganizationsApi.md#updateOrganization) | **PUT** /organizations/ | Update an existing Organization |
+| [**updateOrganization()**](OrganizationsApi.md#updateOrganization) | **PUT** /organizations | Update an existing Organization |
 
 
 ## `updateOrganization()`

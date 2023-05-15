@@ -6,8 +6,8 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 | ------------- | ------------- | ------------- |
 | [**createPlan()**](PlansApi.md#createPlan) | **POST** /plans | Create a new plan |
 | [**destroyPlan()**](PlansApi.md#destroyPlan) | **DELETE** /plans/{code} | Delete a plan |
-| [**findAllPlans()**](PlansApi.md#findAllPlans) | **GET** /plans/ | Find plans |
-| [**findPlan()**](PlansApi.md#findPlan) | **GET** /plans/{code} | Fin plan by code |
+| [**findAllPlans()**](PlansApi.md#findAllPlans) | **GET** /plans | Find plans |
+| [**findPlan()**](PlansApi.md#findPlan) | **GET** /plans/{code} | Find plan by code |
 | [**updatePlan()**](PlansApi.md#updatePlan) | **PUT** /plans/{code} | Update an existing plan |
 
 
@@ -134,7 +134,7 @@ try {
 ## `findAllPlans()`
 
 ```php
-findAllPlans($page, $per_page): \OpenAPI\Client\Model\Plans
+findAllPlans($page, $per_page): \OpenAPI\Client\Model\PlansPaginated
 ```
 
 Find plans
@@ -178,7 +178,7 @@ try {
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Plans**](../Model/Plans.md)
+[**\OpenAPI\Client\Model\PlansPaginated**](../Model/PlansPaginated.md)
 
 ### Authorization
 
@@ -199,7 +199,7 @@ try {
 findPlan($code): \OpenAPI\Client\Model\Plan
 ```
 
-Fin plan by code
+Find plan by code
 
 Return a single plan
 
