@@ -70,6 +70,7 @@ class SubscriptionObject implements ModelInterface, ArrayAccess, \JsonSerializab
         'started_at' => '\DateTime',
         'terminated_at' => '\DateTime',
         'canceled_at' => '\DateTime',
+        'trial_ended_at' => '\DateTime',
         'created_at' => '\DateTime',
         'previous_plan_code' => 'string',
         'next_plan_code' => 'string',
@@ -1018,5 +1019,3 @@ class SubscriptionObject implements ModelInterface, ArrayAccess, \JsonSerializab
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-
