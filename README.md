@@ -10,6 +10,13 @@ Lago API allows your application to push customer information and metrics (event
 PHP 7.4 and later.
 Should also work with PHP 8.0.
 
+## Current Releases
+
+| Project            | Release Badge                                                                                       |
+|--------------------|-----------------------------------------------------------------------------------------------------|
+| **Lago**           | [![Lago Release](https://img.shields.io/github/v/release/getlago/lago)](https://github.com/getlago/lago/releases) |
+| **OpenAPIClient-php**     | [![OpenAPIClient-php Release](https://img.shields.io/github/v/release/getlago/lago-php-client)](https://github.com/getlago/lago-php-client/releases) |
+
 ### Composer
 
 To install the bindings via [Composer](https://getcomposer.org/), add the following to `composer.json`:
