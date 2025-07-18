@@ -1,4 +1,5 @@
 {
+    "name": "getlago/lago-php-client",
     "description": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.",
     "keywords": [
         "openapitools",
