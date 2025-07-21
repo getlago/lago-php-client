@@ -1,0 +1,38 @@
+{
+    "version": "1.31.0",
+    "description": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.",
+    "keywords": [
+        "billing",
+        "lago",
+        "php",
+        "sdk",
+        "rest",
+        "api"
+    ],
+    "homepage": "https://www.getlago.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lago Tech",
+            "homepage": "https://github.com/getlago/lago"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^1.7 || ^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "friendsofphp/php-cs-fixer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": { "Lago\\LagoPhpClient\\" : "lib/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Lago\\LagoPhpClient\\Test\\" : "test/" }
+    }
+}
