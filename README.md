@@ -2,6 +2,17 @@
 
 Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
 
+:warning: This client is generated with OpenApi Generator
+
+## Generation
+
+You can use this command to update the client 
+
+```shell
+# Replace the artifactVersion with the version of Lago you target
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i https://swagger.getlago.com/openapi.yaml -g php -p packageName=lago-php-client,vendorName=Lago,invokerPackage=Lago\\LagoPhpClient,licenseName=MIT,gitUserId=getlago,gitRepoId=lago-php-client,artifactVersion=1.31.0,composePackageName=getlago/lago-php-client -o /local/
+```
+
 
 ## Installation & Usage
 
