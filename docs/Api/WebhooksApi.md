@@ -1,10 +1,10 @@
-# OpenAPI\Client\WebhooksApi
+# Lago\LagoPhpClient\WebhooksApi
 
 All URIs are relative to https://api.getlago.com/api/v1, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**fetchPublicKey()**](WebhooksApi.md#fetchPublicKey) | **GET** /webhooks/public_key | Fetch webhook public key |
+| [**fetchPublicKey()**](WebhooksApi.md#fetchPublicKey) | **GET** /webhooks/public_key | Retrieve webhook public key |
 
 
 ## `fetchPublicKey()`
@@ -13,9 +13,9 @@ All URIs are relative to https://api.getlago.com/api/v1, except if the operation
 fetchPublicKey(): string
 ```
 
-Fetch webhook public key
+Retrieve webhook public key
 
-Webhook public key
+This endpoint is used to retrieve the public key used to verify the webhooks signature
 
 ### Example
 
@@ -25,10 +25,10 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\WebhooksApi(
+$apiInstance = new Lago\LagoPhpClient\Api\WebhooksApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

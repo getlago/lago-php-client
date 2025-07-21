@@ -1,27 +1,29 @@
-# OpenAPI\Client\CustomersApi
+# Lago\LagoPhpClient\CustomersApi
 
 All URIs are relative to https://api.getlago.com/api/v1, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**createCustomer()**](CustomersApi.md#createCustomer) | **POST** /customers | Create a customer |
-| [**deleteAppliedCoupon()**](CustomersApi.md#deleteAppliedCoupon) | **DELETE** /customers/{customer_external_id}/applied_coupons/{applied_coupon_id} | Delete customer&#39;s appplied coupon |
-| [**destroyCustomer()**](CustomersApi.md#destroyCustomer) | **DELETE** /customers/{external_id} | Delete a customer |
-| [**findAllCustomers()**](CustomersApi.md#findAllCustomers) | **GET** /customers | Find customers |
-| [**findCustomer()**](CustomersApi.md#findCustomer) | **GET** /customers/{external_id} | Find customer by external ID |
-| [**findCustomerCurrentUsage()**](CustomersApi.md#findCustomerCurrentUsage) | **GET** /customers/{customer_external_id}/current_usage | Find customer current usage |
-| [**getCustomerPortalUrl()**](CustomersApi.md#getCustomerPortalUrl) | **GET** /customers/{customer_external_id}/portal_url | Get customer portal URL |
+| [**deleteAppliedCoupon()**](CustomersApi.md#deleteAppliedCoupon) | **DELETE** /customers/{external_customer_id}/applied_coupons/{applied_coupon_id} | Delete an applied coupon |
+| [**destroyCustomer()**](CustomersApi.md#destroyCustomer) | **DELETE** /customers/{external_customer_id} | Delete a customer |
+| [**findAllCustomerPastUsage()**](CustomersApi.md#findAllCustomerPastUsage) | **GET** /customers/{external_customer_id}/past_usage | Retrieve customer past usage |
+| [**findAllCustomers()**](CustomersApi.md#findAllCustomers) | **GET** /customers | List all customers |
+| [**findCustomer()**](CustomersApi.md#findCustomer) | **GET** /customers/{external_customer_id} | Retrieve a customer |
+| [**findCustomerCurrentUsage()**](CustomersApi.md#findCustomerCurrentUsage) | **GET** /customers/{external_customer_id}/current_usage | Retrieve customer current usage |
+| [**generateCustomerCheckoutURL()**](CustomersApi.md#generateCustomerCheckoutURL) | **POST** /customers/{external_customer_id}/checkout_url | Generate a Customer Payment Provider Checkout URL |
+| [**getCustomerPortalUrl()**](CustomersApi.md#getCustomerPortalUrl) | **GET** /customers/{external_customer_id}/portal_url | Get a customer portal URL |
 
 
 ## `createCustomer()`
 
 ```php
-createCustomer($customer_input): \OpenAPI\Client\Model\Customer
+createCustomer($customer_create_input): \Lago\LagoPhpClient\Model\Customer
 ```
 
 Create a customer
 
-Create a new customer
+This endpoint creates a new customer.
 
 ### Example
 
@@ -31,19 +33,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\CustomersApi(
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$customer_input = new \OpenAPI\Client\Model\CustomerInput(); // \OpenAPI\Client\Model\CustomerInput | Customer payload
+$customer_create_input = new \Lago\LagoPhpClient\Model\CustomerCreateInput(); // \Lago\LagoPhpClient\Model\CustomerCreateInput | Customer payload
 
 try {
-    $result = $apiInstance->createCustomer($customer_input);
+    $result = $apiInstance->createCustomer($customer_create_input);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->createCustomer: ', $e->getMessage(), PHP_EOL;
@@ -54,11 +56,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **customer_input** | [**\OpenAPI\Client\Model\CustomerInput**](../Model/CustomerInput.md)| Customer payload | |
+| **customer_create_input** | [**\Lago\LagoPhpClient\Model\CustomerCreateInput**](../Model/CustomerCreateInput.md)| Customer payload | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Customer**](../Model/Customer.md)
+[**\Lago\LagoPhpClient\Model\Customer**](../Model/Customer.md)
 
 ### Authorization
 
@@ -76,12 +78,12 @@ try {
 ## `deleteAppliedCoupon()`
 
 ```php
-deleteAppliedCoupon($customer_external_id, $applied_coupon_id): \OpenAPI\Client\Model\AppliedCoupon
+deleteAppliedCoupon($external_customer_id, $applied_coupon_id): \Lago\LagoPhpClient\Model\AppliedCoupon
 ```
 
-Delete customer's appplied coupon
+Delete an applied coupon
 
-Delete customer's appplied coupon
+This endpoint is used to delete a specific coupon that has been applied to a customer.
 
 ### Example
 
@@ -91,20 +93,20 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\CustomersApi(
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$customer_external_id = 12345; // string | External ID of the existing customer
-$applied_coupon_id = 54321; // string | Applied Coupon Lago ID
+$external_customer_id = 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba; // string | The customer external unique identifier (provided by your own application)
+$applied_coupon_id = 1a901a90-1a90-1a90-1a90-1a901a901a90; // string | Unique identifier of the applied coupon, created by Lago.
 
 try {
-    $result = $apiInstance->deleteAppliedCoupon($customer_external_id, $applied_coupon_id);
+    $result = $apiInstance->deleteAppliedCoupon($external_customer_id, $applied_coupon_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->deleteAppliedCoupon: ', $e->getMessage(), PHP_EOL;
@@ -115,12 +117,12 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **customer_external_id** | **string**| External ID of the existing customer | |
-| **applied_coupon_id** | **string**| Applied Coupon Lago ID | |
+| **external_customer_id** | **string**| The customer external unique identifier (provided by your own application) | |
+| **applied_coupon_id** | **string**| Unique identifier of the applied coupon, created by Lago. | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\AppliedCoupon**](../Model/AppliedCoupon.md)
+[**\Lago\LagoPhpClient\Model\AppliedCoupon**](../Model/AppliedCoupon.md)
 
 ### Authorization
 
@@ -138,12 +140,12 @@ try {
 ## `destroyCustomer()`
 
 ```php
-destroyCustomer($external_id): \OpenAPI\Client\Model\Customer
+destroyCustomer($external_customer_id): \Lago\LagoPhpClient\Model\Customer
 ```
 
 Delete a customer
 
-Return the deleted customer
+This endpoint deletes an existing customer.
 
 ### Example
 
@@ -153,19 +155,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\CustomersApi(
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$external_id = 12345; // string | External ID of the existing customer
+$external_customer_id = 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba; // string | The customer external unique identifier (provided by your own application)
 
 try {
-    $result = $apiInstance->destroyCustomer($external_id);
+    $result = $apiInstance->destroyCustomer($external_customer_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->destroyCustomer: ', $e->getMessage(), PHP_EOL;
@@ -176,11 +178,81 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **external_id** | **string**| External ID of the existing customer | |
+| **external_customer_id** | **string**| The customer external unique identifier (provided by your own application) | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Customer**](../Model/Customer.md)
+[**\Lago\LagoPhpClient\Model\Customer**](../Model/Customer.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `findAllCustomerPastUsage()`
+
+```php
+findAllCustomerPastUsage($external_customer_id, $external_subscription_id, $page, $per_page, $billable_metric_code, $periods_count): \Lago\LagoPhpClient\Model\CustomerPastUsage
+```
+
+Retrieve customer past usage
+
+This endpoint enables the retrieval of the usage-based billing data for a customer within past periods.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$external_customer_id = 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba; // string | The customer external unique identifier (provided by your own application).
+$external_subscription_id = sub_1234567890; // string | The unique identifier of the subscription within your application.
+$page = 1; // int | Page number.
+$per_page = 20; // int | Number of records per page.
+$billable_metric_code = cpu; // string | Billable metric code filter to apply to the charge usage
+$periods_count = 5; // int | Number of past billing period to returns in the result
+
+try {
+    $result = $apiInstance->findAllCustomerPastUsage($external_customer_id, $external_subscription_id, $page, $per_page, $billable_metric_code, $periods_count);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling CustomersApi->findAllCustomerPastUsage: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **external_customer_id** | **string**| The customer external unique identifier (provided by your own application). | |
+| **external_subscription_id** | **string**| The unique identifier of the subscription within your application. | |
+| **page** | **int**| Page number. | [optional] |
+| **per_page** | **int**| Number of records per page. | [optional] |
+| **billable_metric_code** | **string**| Billable metric code filter to apply to the charge usage | [optional] |
+| **periods_count** | **int**| Number of past billing period to returns in the result | [optional] |
+
+### Return type
+
+[**\Lago\LagoPhpClient\Model\CustomerPastUsage**](../Model/CustomerPastUsage.md)
 
 ### Authorization
 
@@ -198,12 +270,12 @@ try {
 ## `findAllCustomers()`
 
 ```php
-findAllCustomers($page, $per_page): \OpenAPI\Client\Model\CustomersPaginated
+findAllCustomers($page, $per_page, $account_type, $billing_entity_codes): \Lago\LagoPhpClient\Model\CustomersPaginated
 ```
 
-Find customers
+List all customers
 
-Find all customers in certain organisation
+This endpoint retrieves all existing customers.
 
 ### Example
 
@@ -213,20 +285,22 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\CustomersApi(
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$page = 2; // int | Number of page
-$per_page = 20; // int | Number of records per page
+$page = 1; // int | Page number.
+$per_page = 20; // int | Number of records per page.
+$account_type = ["customer","partner"]; // string[] | Filter customers by account type.
+$billing_entity_codes = [billing_entity_code_1, billing_entity_code_2]; // string[] | Filter customers by billing entity codes.
 
 try {
-    $result = $apiInstance->findAllCustomers($page, $per_page);
+    $result = $apiInstance->findAllCustomers($page, $per_page, $account_type, $billing_entity_codes);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->findAllCustomers: ', $e->getMessage(), PHP_EOL;
@@ -237,12 +311,14 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **page** | **int**| Number of page | [optional] |
-| **per_page** | **int**| Number of records per page | [optional] |
+| **page** | **int**| Page number. | [optional] |
+| **per_page** | **int**| Number of records per page. | [optional] |
+| **account_type** | [**string[]**](../Model/string.md)| Filter customers by account type. | [optional] |
+| **billing_entity_codes** | [**string[]**](../Model/string.md)| Filter customers by billing entity codes. | [optional] |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\CustomersPaginated**](../Model/CustomersPaginated.md)
+[**\Lago\LagoPhpClient\Model\CustomersPaginated**](../Model/CustomersPaginated.md)
 
 ### Authorization
 
@@ -260,12 +336,12 @@ try {
 ## `findCustomer()`
 
 ```php
-findCustomer($external_id): \OpenAPI\Client\Model\Customer
+findCustomer($external_customer_id): \Lago\LagoPhpClient\Model\Customer
 ```
 
-Find customer by external ID
+Retrieve a customer
 
-Return a single customer
+This endpoint retrieves an existing customer.
 
 ### Example
 
@@ -275,19 +351,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\CustomersApi(
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$external_id = 12345; // string | External ID of the existing customer
+$external_customer_id = 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba; // string | The customer external unique identifier (provided by your own application)
 
 try {
-    $result = $apiInstance->findCustomer($external_id);
+    $result = $apiInstance->findCustomer($external_customer_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->findCustomer: ', $e->getMessage(), PHP_EOL;
@@ -298,11 +374,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **external_id** | **string**| External ID of the existing customer | |
+| **external_customer_id** | **string**| The customer external unique identifier (provided by your own application) | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Customer**](../Model/Customer.md)
+[**\Lago\LagoPhpClient\Model\Customer**](../Model/Customer.md)
 
 ### Authorization
 
@@ -320,12 +396,12 @@ try {
 ## `findCustomerCurrentUsage()`
 
 ```php
-findCustomerCurrentUsage($customer_external_id, $external_subscription_id): \OpenAPI\Client\Model\CustomerUsage
+findCustomerCurrentUsage($external_customer_id, $external_subscription_id, $apply_taxes): \Lago\LagoPhpClient\Model\CustomerUsage
 ```
 
-Find customer current usage
+Retrieve customer current usage
 
-Return a customer current usage
+This endpoint enables the retrieval of the usage-based billing data for a customer within the current period.
 
 ### Example
 
@@ -335,20 +411,21 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\CustomersApi(
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$customer_external_id = 12345; // string | External ID of the existing customer
-$external_subscription_id = 54321; // string | External subscription ID
+$external_customer_id = 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba; // string | The customer external unique identifier (provided by your own application).
+$external_subscription_id = sub_1234567890; // string | The unique identifier of the subscription within your application.
+$apply_taxes = true; // bool | Optional flag to determine if taxes should be applied. Defaults to `true` if not provided or if null.
 
 try {
-    $result = $apiInstance->findCustomerCurrentUsage($customer_external_id, $external_subscription_id);
+    $result = $apiInstance->findCustomerCurrentUsage($external_customer_id, $external_subscription_id, $apply_taxes);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->findCustomerCurrentUsage: ', $e->getMessage(), PHP_EOL;
@@ -359,12 +436,73 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **customer_external_id** | **string**| External ID of the existing customer | |
-| **external_subscription_id** | **string**| External subscription ID | |
+| **external_customer_id** | **string**| The customer external unique identifier (provided by your own application). | |
+| **external_subscription_id** | **string**| The unique identifier of the subscription within your application. | |
+| **apply_taxes** | **bool**| Optional flag to determine if taxes should be applied. Defaults to &#x60;true&#x60; if not provided or if null. | [optional] [default to true] |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\CustomerUsage**](../Model/CustomerUsage.md)
+[**\Lago\LagoPhpClient\Model\CustomerUsage**](../Model/CustomerUsage.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `generateCustomerCheckoutURL()`
+
+```php
+generateCustomerCheckoutURL($external_customer_id): \Lago\LagoPhpClient\Model\CustomerCheckoutUrl
+```
+
+Generate a Customer Payment Provider Checkout URL
+
+This endpoint regenerates the Payment Provider Checkout URL of a Customer.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$external_customer_id = 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba; // string | The customer external unique identifier (provided by your own application).
+
+try {
+    $result = $apiInstance->generateCustomerCheckoutURL($external_customer_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling CustomersApi->generateCustomerCheckoutURL: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **external_customer_id** | **string**| The customer external unique identifier (provided by your own application). | |
+
+### Return type
+
+[**\Lago\LagoPhpClient\Model\CustomerCheckoutUrl**](../Model/CustomerCheckoutUrl.md)
 
 ### Authorization
 
@@ -382,12 +520,12 @@ try {
 ## `getCustomerPortalUrl()`
 
 ```php
-getCustomerPortalUrl($customer_external_id): \OpenAPI\Client\Model\GetCustomerPortalUrl200Response
+getCustomerPortalUrl($external_customer_id): \Lago\LagoPhpClient\Model\GetCustomerPortalUrl200Response
 ```
 
-Get customer portal URL
+Get a customer portal URL
 
-Get customer portal URL
+Retrieves an embeddable link for displaying a customer portal.  This endpoint allows you to fetch the URL that can be embedded to provide customers access to a dedicated portal
 
 ### Example
 
@@ -397,19 +535,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\CustomersApi(
+$apiInstance = new Lago\LagoPhpClient\Api\CustomersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$customer_external_id = 12345; // string | External ID of the existing customer
+$external_customer_id = 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba; // string | External ID of the existing customer
 
 try {
-    $result = $apiInstance->getCustomerPortalUrl($customer_external_id);
+    $result = $apiInstance->getCustomerPortalUrl($external_customer_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->getCustomerPortalUrl: ', $e->getMessage(), PHP_EOL;
@@ -420,11 +558,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **customer_external_id** | **string**| External ID of the existing customer | |
+| **external_customer_id** | **string**| External ID of the existing customer | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\GetCustomerPortalUrl200Response**](../Model/GetCustomerPortalUrl200Response.md)
+[**\Lago\LagoPhpClient\Model\GetCustomerPortalUrl200Response**](../Model/GetCustomerPortalUrl200Response.md)
 
 ### Authorization
 

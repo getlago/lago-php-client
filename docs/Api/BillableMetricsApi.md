@@ -1,26 +1,26 @@
-# OpenAPI\Client\BillableMetricsApi
+# Lago\LagoPhpClient\BillableMetricsApi
 
 All URIs are relative to https://api.getlago.com/api/v1, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**createBillableMetric()**](BillableMetricsApi.md#createBillableMetric) | **POST** /billable_metrics | Create a new billable metric |
+| [**createBillableMetric()**](BillableMetricsApi.md#createBillableMetric) | **POST** /billable_metrics | Create a billable metric |
 | [**destroyBillableMetric()**](BillableMetricsApi.md#destroyBillableMetric) | **DELETE** /billable_metrics/{code} | Delete a billable metric |
-| [**findAllBillableMetricGroups()**](BillableMetricsApi.md#findAllBillableMetricGroups) | **GET** /billable_metrics/{code}/groups | Find Billable metric groups |
-| [**findAllBillableMetrics()**](BillableMetricsApi.md#findAllBillableMetrics) | **GET** /billable_metrics | Find Billable metrics |
-| [**findBillableMetric()**](BillableMetricsApi.md#findBillableMetric) | **GET** /billable_metrics/{code} | Find billable metric by code |
-| [**updateBillableMetric()**](BillableMetricsApi.md#updateBillableMetric) | **PUT** /billable_metrics/{code} | Update an existing billable metric |
+| [**evaluateBillableMetricExpression()**](BillableMetricsApi.md#evaluateBillableMetricExpression) | **POST** /billable_metrics/evaluate_expression | Evaluate an expression for a billable metric |
+| [**findAllBillableMetrics()**](BillableMetricsApi.md#findAllBillableMetrics) | **GET** /billable_metrics | List all billable metrics |
+| [**findBillableMetric()**](BillableMetricsApi.md#findBillableMetric) | **GET** /billable_metrics/{code} | Retrieve a billable metric |
+| [**updateBillableMetric()**](BillableMetricsApi.md#updateBillableMetric) | **PUT** /billable_metrics/{code} | Update a billable metric |
 
 
 ## `createBillableMetric()`
 
 ```php
-createBillableMetric($billable_metric_input): \OpenAPI\Client\Model\BillableMetric
+createBillableMetric($billable_metric_create_input): \Lago\LagoPhpClient\Model\BillableMetric
 ```
 
-Create a new billable metric
+Create a billable metric
 
-Create a new billable metric
+This endpoint creates a new billable metric representing a pricing component of your application.
 
 ### Example
 
@@ -30,19 +30,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\BillableMetricsApi(
+$apiInstance = new Lago\LagoPhpClient\Api\BillableMetricsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$billable_metric_input = new \OpenAPI\Client\Model\BillableMetricInput(); // \OpenAPI\Client\Model\BillableMetricInput | Billable metric payload
+$billable_metric_create_input = new \Lago\LagoPhpClient\Model\BillableMetricCreateInput(); // \Lago\LagoPhpClient\Model\BillableMetricCreateInput | Billable metric payload
 
 try {
-    $result = $apiInstance->createBillableMetric($billable_metric_input);
+    $result = $apiInstance->createBillableMetric($billable_metric_create_input);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling BillableMetricsApi->createBillableMetric: ', $e->getMessage(), PHP_EOL;
@@ -53,11 +53,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **billable_metric_input** | [**\OpenAPI\Client\Model\BillableMetricInput**](../Model/BillableMetricInput.md)| Billable metric payload | |
+| **billable_metric_create_input** | [**\Lago\LagoPhpClient\Model\BillableMetricCreateInput**](../Model/BillableMetricCreateInput.md)| Billable metric payload | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\BillableMetric**](../Model/BillableMetric.md)
+[**\Lago\LagoPhpClient\Model\BillableMetric**](../Model/BillableMetric.md)
 
 ### Authorization
 
@@ -75,12 +75,12 @@ try {
 ## `destroyBillableMetric()`
 
 ```php
-destroyBillableMetric($code): \OpenAPI\Client\Model\BillableMetric
+destroyBillableMetric($code): \Lago\LagoPhpClient\Model\BillableMetric
 ```
 
 Delete a billable metric
 
-Delete a billable metric
+This endpoint deletes an existing billable metric representing a pricing component of your application.
 
 ### Example
 
@@ -90,16 +90,16 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\BillableMetricsApi(
+$apiInstance = new Lago\LagoPhpClient\Api\BillableMetricsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$code = example_code; // string | Code of the existing billable metric
+$code = storage; // string | Code of the existing billable metric.
 
 try {
     $result = $apiInstance->destroyBillableMetric($code);
@@ -113,11 +113,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **code** | **string**| Code of the existing billable metric | |
+| **code** | **string**| Code of the existing billable metric. | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\BillableMetric**](../Model/BillableMetric.md)
+[**\Lago\LagoPhpClient\Model\BillableMetric**](../Model/BillableMetric.md)
 
 ### Authorization
 
@@ -132,15 +132,15 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `findAllBillableMetricGroups()`
+## `evaluateBillableMetricExpression()`
 
 ```php
-findAllBillableMetricGroups($code, $page, $per_page): \OpenAPI\Client\Model\GroupsPaginated
+evaluateBillableMetricExpression($billable_metric_evaluate_expression_input): \Lago\LagoPhpClient\Model\BillableMetricEvaluateExpressionResult
 ```
 
-Find Billable metric groups
+Evaluate an expression for a billable metric
 
-Find all billable metric groups in certain organisation
+Evaluate an expression for a billable metric creation by providing the expression and test data
 
 ### Example
 
@@ -150,24 +150,22 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\BillableMetricsApi(
+$apiInstance = new Lago\LagoPhpClient\Api\BillableMetricsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$code = example_code; // string | Code of the existing billable metric
-$page = 2; // int | Number of page
-$per_page = 20; // int | Number of records per page
+$billable_metric_evaluate_expression_input = new \Lago\LagoPhpClient\Model\BillableMetricEvaluateExpressionInput(); // \Lago\LagoPhpClient\Model\BillableMetricEvaluateExpressionInput | Billable metric expression evaluation payload
 
 try {
-    $result = $apiInstance->findAllBillableMetricGroups($code, $page, $per_page);
+    $result = $apiInstance->evaluateBillableMetricExpression($billable_metric_evaluate_expression_input);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling BillableMetricsApi->findAllBillableMetricGroups: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling BillableMetricsApi->evaluateBillableMetricExpression: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -175,13 +173,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **code** | **string**| Code of the existing billable metric | |
-| **page** | **int**| Number of page | [optional] |
-| **per_page** | **int**| Number of records per page | [optional] |
+| **billable_metric_evaluate_expression_input** | [**\Lago\LagoPhpClient\Model\BillableMetricEvaluateExpressionInput**](../Model/BillableMetricEvaluateExpressionInput.md)| Billable metric expression evaluation payload | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\GroupsPaginated**](../Model/GroupsPaginated.md)
+[**\Lago\LagoPhpClient\Model\BillableMetricEvaluateExpressionResult**](../Model/BillableMetricEvaluateExpressionResult.md)
 
 ### Authorization
 
@@ -189,7 +185,7 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -199,12 +195,12 @@ try {
 ## `findAllBillableMetrics()`
 
 ```php
-findAllBillableMetrics($page, $per_page): \OpenAPI\Client\Model\BillableMetricsPaginated
+findAllBillableMetrics($page, $per_page): \Lago\LagoPhpClient\Model\BillableMetricsPaginated
 ```
 
-Find Billable metrics
+List all billable metrics
 
-Find all billable metrics in certain organisation
+This endpoint retrieves all existing billable metrics that represent pricing components of your application.
 
 ### Example
 
@@ -214,17 +210,17 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\BillableMetricsApi(
+$apiInstance = new Lago\LagoPhpClient\Api\BillableMetricsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$page = 2; // int | Number of page
-$per_page = 20; // int | Number of records per page
+$page = 1; // int | Page number.
+$per_page = 20; // int | Number of records per page.
 
 try {
     $result = $apiInstance->findAllBillableMetrics($page, $per_page);
@@ -238,12 +234,12 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **page** | **int**| Number of page | [optional] |
-| **per_page** | **int**| Number of records per page | [optional] |
+| **page** | **int**| Page number. | [optional] |
+| **per_page** | **int**| Number of records per page. | [optional] |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\BillableMetricsPaginated**](../Model/BillableMetricsPaginated.md)
+[**\Lago\LagoPhpClient\Model\BillableMetricsPaginated**](../Model/BillableMetricsPaginated.md)
 
 ### Authorization
 
@@ -261,12 +257,12 @@ try {
 ## `findBillableMetric()`
 
 ```php
-findBillableMetric($code): \OpenAPI\Client\Model\BillableMetric
+findBillableMetric($code): \Lago\LagoPhpClient\Model\BillableMetric
 ```
 
-Find billable metric by code
+Retrieve a billable metric
 
-Return a single billable metric
+This endpoint retrieves an existing billable metric that represents a pricing component of your application. The billable metric is identified by its unique code.
 
 ### Example
 
@@ -276,16 +272,16 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\BillableMetricsApi(
+$apiInstance = new Lago\LagoPhpClient\Api\BillableMetricsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$code = example_code; // string | Code of the existing billable metric
+$code = storage; // string | Code of the existing billable metric.
 
 try {
     $result = $apiInstance->findBillableMetric($code);
@@ -299,11 +295,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **code** | **string**| Code of the existing billable metric | |
+| **code** | **string**| Code of the existing billable metric. | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\BillableMetric**](../Model/BillableMetric.md)
+[**\Lago\LagoPhpClient\Model\BillableMetric**](../Model/BillableMetric.md)
 
 ### Authorization
 
@@ -321,12 +317,12 @@ try {
 ## `updateBillableMetric()`
 
 ```php
-updateBillableMetric($code, $billable_metric_input): \OpenAPI\Client\Model\BillableMetric
+updateBillableMetric($code, $billable_metric_update_input): \Lago\LagoPhpClient\Model\BillableMetric
 ```
 
-Update an existing billable metric
+Update a billable metric
 
-Update an existing billable metric by code
+This endpoint updates an existing billable metric representing a pricing component of your application.
 
 ### Example
 
@@ -336,20 +332,20 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\BillableMetricsApi(
+$apiInstance = new Lago\LagoPhpClient\Api\BillableMetricsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$code = example_code; // string | Code of the existing billable metric
-$billable_metric_input = new \OpenAPI\Client\Model\BillableMetricInput(); // \OpenAPI\Client\Model\BillableMetricInput | Update an existing billable metric
+$code = storage; // string | Code of the existing billable metric.
+$billable_metric_update_input = new \Lago\LagoPhpClient\Model\BillableMetricUpdateInput(); // \Lago\LagoPhpClient\Model\BillableMetricUpdateInput | Billable metric payload
 
 try {
-    $result = $apiInstance->updateBillableMetric($code, $billable_metric_input);
+    $result = $apiInstance->updateBillableMetric($code, $billable_metric_update_input);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling BillableMetricsApi->updateBillableMetric: ', $e->getMessage(), PHP_EOL;
@@ -360,12 +356,12 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **code** | **string**| Code of the existing billable metric | |
-| **billable_metric_input** | [**\OpenAPI\Client\Model\BillableMetricInput**](../Model/BillableMetricInput.md)| Update an existing billable metric | |
+| **code** | **string**| Code of the existing billable metric. | |
+| **billable_metric_update_input** | [**\Lago\LagoPhpClient\Model\BillableMetricUpdateInput**](../Model/BillableMetricUpdateInput.md)| Billable metric payload | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\BillableMetric**](../Model/BillableMetric.md)
+[**\Lago\LagoPhpClient\Model\BillableMetric**](../Model/BillableMetric.md)
 
 ### Authorization
 

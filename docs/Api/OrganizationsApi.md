@@ -1,21 +1,21 @@
-# OpenAPI\Client\OrganizationsApi
+# Lago\LagoPhpClient\OrganizationsApi
 
 All URIs are relative to https://api.getlago.com/api/v1, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**updateOrganization()**](OrganizationsApi.md#updateOrganization) | **PUT** /organizations | Update an existing Organization |
+| [**updateOrganization()**](OrganizationsApi.md#updateOrganization) | **PUT** /organizations | Update your organization |
 
 
 ## `updateOrganization()`
 
 ```php
-updateOrganization($organization_input): \OpenAPI\Client\Model\Organization
+updateOrganization($organization_update_input): \Lago\LagoPhpClient\Model\Organization
 ```
 
-Update an existing Organization
+Update your organization
 
-Update an existing organization
+This endpoint is used to update your own organization's settings.
 
 ### Example
 
@@ -25,19 +25,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer authorization: bearerAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = Lago\LagoPhpClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new OpenAPI\Client\Api\OrganizationsApi(
+$apiInstance = new Lago\LagoPhpClient\Api\OrganizationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$organization_input = new \OpenAPI\Client\Model\OrganizationInput(); // \OpenAPI\Client\Model\OrganizationInput | Update an existing organization
+$organization_update_input = new \Lago\LagoPhpClient\Model\OrganizationUpdateInput(); // \Lago\LagoPhpClient\Model\OrganizationUpdateInput | Update an existing organization
 
 try {
-    $result = $apiInstance->updateOrganization($organization_input);
+    $result = $apiInstance->updateOrganization($organization_update_input);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrganizationsApi->updateOrganization: ', $e->getMessage(), PHP_EOL;
@@ -48,11 +48,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **organization_input** | [**\OpenAPI\Client\Model\OrganizationInput**](../Model/OrganizationInput.md)| Update an existing organization | |
+| **organization_update_input** | [**\Lago\LagoPhpClient\Model\OrganizationUpdateInput**](../Model/OrganizationUpdateInput.md)| Update an existing organization | |
 
 ### Return type
 
-[**\OpenAPI\Client\Model\Organization**](../Model/Organization.md)
+[**\Lago\LagoPhpClient\Model\Organization**](../Model/Organization.md)
 
 ### Authorization
 

@@ -1,25 +1,25 @@
 {
     "name": "getlago/lago-php-client",
+    "version": "1.31.0",
     "description": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.",
     "keywords": [
-        "openapitools",
-        "openapi-generator",
-        "openapi",
+        "billing",
+        "lago",
         "php",
         "sdk",
         "rest",
         "api"
     ],
-    "homepage": "https://wwW.getlago.com",
+    "homepage": "https://www.getlago.com",
     "license": "MIT",
     "authors": [
         {
-            "name": "OpenAPI-Generator contributors",
-            "homepage": "https://openapi-generator.tech"
+            "name": "Lago Tech",
+            "homepage": "https://github.com/getlago/lago"
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
@@ -31,9 +31,9 @@
         "friendsofphp/php-cs-fixer": "^3.5"
     },
     "autoload": {
-        "psr-4": { "OpenAPI\\Client\\" : "lib/" }
+        "psr-4": { "Lago\\LagoPhpClient\\" : "lib/" }
     },
     "autoload-dev": {
-        "psr-4": { "OpenAPI\\Client\\Test\\" : "test/" }
+        "psr-4": { "Lago\\LagoPhpClient\\Test\\" : "test/" }
     }
 }
