@@ -38,7 +38,12 @@ class ClientFactory
      */
     public static function createClient(Configuration $config, array $options = []): ClientInterface
     {
-        $handlerStack = HandlerStack::create();
+        // Use an existing handler stack if provided, otherwise create a new one
+        if (isset($options['handler']) && $options['handler'] instanceof HandlerStack) {
+            $handlerStack = $options['handler'];
+        } else {
+            $handlerStack = HandlerStack::create($options['handler'] ?? null);
+        }
 
         // Add rate limit retry middleware if enabled
         if ($config->getRetryOnRateLimit()) {
@@ -49,7 +54,6 @@ class ClientFactory
             $handlerStack->push($middleware(), 'lago_rate_limit_retry');
         }
 
-        // Set the handler in the client options
         $options['handler'] = $handlerStack;
 
         return new Client($options);

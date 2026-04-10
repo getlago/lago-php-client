@@ -128,11 +128,17 @@ class ClientFactoryTest extends TestCase
             return \GuzzleHttp\Promise\Create::promiseFor(new Response(200));
         };
 
-        // Create client with custom handler for testing
-        $options = ['handler' => $mockHandler];
+        // Create client with custom handler — middleware should wrap it
+        $handlerStack = \GuzzleHttp\HandlerStack::create($mockHandler);
+        $options = ['handler' => $handlerStack];
         $client = ClientFactory::createClient($config, $options);
 
         $this->assertInstanceOf(ClientInterface::class, $client);
+
+        // Actually send a request to verify retry behavior
+        $response = $client->request('GET', 'https://api.example.com/test');
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(2, $callCount, 'Handler should be called twice (initial 429 + retry 200)');
     }
 
     /**
