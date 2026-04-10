@@ -8,8 +8,8 @@
   </coverage>
   <testsuites>
     <testsuite name="tests">
-      <directory>./test/Api</directory>
-      <directory>./test/Model</directory>
+      <directory>./test</directory>
+      <exclude>./test/Api/DefaultApiTest.php</exclude>
     </testsuite>
   </testsuites>
   <php>

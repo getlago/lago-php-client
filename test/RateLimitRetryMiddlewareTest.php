@@ -62,7 +62,7 @@ class RateLimitRetryMiddlewareTest extends TestCase
 
         // Simulate handler chain
         $handler = function ($request, $options) {
-            return \GuzzleHttp\Promise\promise_for(new Response(200));
+            return \GuzzleHttp\Promise\Create::promiseFor(new Response(200));
         };
 
         $result = $middlewareCallable($handler);
@@ -81,7 +81,7 @@ class RateLimitRetryMiddlewareTest extends TestCase
         $callCount = 0;
         $handler = function ($request, $options) use (&$callCount) {
             $callCount++;
-            return \GuzzleHttp\Promise\promise_for(new Response(200, ['content-type' => 'application/json']));
+            return \GuzzleHttp\Promise\Create::promiseFor(new Response(200, ['content-type' => 'application/json']));
         };
 
         $wrappedHandler = $middlewareCallable($handler);
@@ -110,7 +110,7 @@ class RateLimitRetryMiddlewareTest extends TestCase
 
             // First call returns 429, second returns 200
             if ($callCount === 1) {
-                return \GuzzleHttp\Promise\promise_for(
+                return \GuzzleHttp\Promise\Create::promiseFor(
                     new Response(429, [
                         'x-ratelimit-limit' => '100',
                         'x-ratelimit-remaining' => '0',
@@ -119,7 +119,7 @@ class RateLimitRetryMiddlewareTest extends TestCase
                 );
             }
 
-            return \GuzzleHttp\Promise\promise_for(new Response(200));
+            return \GuzzleHttp\Promise\Create::promiseFor(new Response(200));
         };
 
         $wrappedHandler = $middlewareCallable($handler);
@@ -143,7 +143,7 @@ class RateLimitRetryMiddlewareTest extends TestCase
         $callCount = 0;
         $handler = function ($request, $options) use (&$callCount) {
             $callCount++;
-            return \GuzzleHttp\Promise\promise_for(
+            return \GuzzleHttp\Promise\Create::promiseFor(
                 new Response(429, [
                     'x-ratelimit-limit' => '100',
                     'x-ratelimit-remaining' => '0',
@@ -181,10 +181,10 @@ class RateLimitRetryMiddlewareTest extends TestCase
             // Second 429: sleep(2^1) = 2 seconds
             // Total test time ~3 seconds
             if ($callCount < 3) {
-                return \GuzzleHttp\Promise\promise_for(new Response(429));
+                return \GuzzleHttp\Promise\Create::promiseFor(new Response(429));
             }
 
-            return \GuzzleHttp\Promise\promise_for(new Response(200));
+            return \GuzzleHttp\Promise\Create::promiseFor(new Response(200));
         };
 
         $wrappedHandler = $middlewareCallable($handler);
@@ -209,7 +209,7 @@ class RateLimitRetryMiddlewareTest extends TestCase
         $handler = function ($request, $options) use (&$callCount) {
             $callCount++;
             // Always return 429 to test max retries enforcement
-            return \GuzzleHttp\Promise\promise_for(
+            return \GuzzleHttp\Promise\Create::promiseFor(
                 new Response(429, [
                     'x-ratelimit-limit' => '100',
                     'x-ratelimit-remaining' => '0',

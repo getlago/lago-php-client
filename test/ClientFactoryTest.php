@@ -116,7 +116,7 @@ class ClientFactoryTest extends TestCase
 
             // First call returns 429, second returns 200
             if ($callCount === 1) {
-                return \GuzzleHttp\Promise\promise_for(
+                return \GuzzleHttp\Promise\Create::promiseFor(
                     new Response(429, [
                         'x-ratelimit-limit' => '100',
                         'x-ratelimit-remaining' => '0',
@@ -125,7 +125,7 @@ class ClientFactoryTest extends TestCase
                 );
             }
 
-            return \GuzzleHttp\Promise\promise_for(new Response(200));
+            return \GuzzleHttp\Promise\Create::promiseFor(new Response(200));
         };
 
         // Create client with custom handler for testing
