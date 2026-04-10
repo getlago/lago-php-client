@@ -125,6 +125,20 @@ class Configuration
     protected $tempFolderPath;
 
     /**
+     * Enable automatic retry on rate limit (HTTP 429)
+     *
+     * @var bool
+     */
+    protected $retryOnRateLimit = true;
+
+    /**
+     * Maximum number of retries on rate limit
+     *
+     * @var int
+     */
+    protected $maxRetries = 3;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -533,5 +547,51 @@ class Configuration
     public function getHostFromSettings($index, $variables = null)
     {
         return self::getHostString($this->getHostSettings(), $index, $variables);
+    }
+
+    /**
+     * Sets whether to enable automatic retry on rate limit (HTTP 429)
+     *
+     * @param bool $retryOnRateLimit Enable retry on rate limit
+     *
+     * @return $this
+     */
+    public function setRetryOnRateLimit($retryOnRateLimit)
+    {
+        $this->retryOnRateLimit = (bool) $retryOnRateLimit;
+        return $this;
+    }
+
+    /**
+     * Gets whether automatic retry on rate limit is enabled
+     *
+     * @return bool
+     */
+    public function getRetryOnRateLimit()
+    {
+        return $this->retryOnRateLimit;
+    }
+
+    /**
+     * Sets the maximum number of retries on rate limit
+     *
+     * @param int $maxRetries Maximum number of retries
+     *
+     * @return $this
+     */
+    public function setMaxRetries($maxRetries)
+    {
+        $this->maxRetries = max(0, (int) $maxRetries);
+        return $this;
+    }
+
+    /**
+     * Gets the maximum number of retries on rate limit
+     *
+     * @return int
+     */
+    public function getMaxRetries()
+    {
+        return $this->maxRetries;
     }
 }
