@@ -96,11 +96,11 @@ class RateLimitRetryMiddlewareTest extends TestCase
     }
 
     /**
-     * Test that 429 responses are handled when retry is enabled
+     * Test that 429 responses are retried when retry is enabled
      */
     public function testRate429WithRetryEnabled()
     {
-        // Use mock to avoid actual sleep calls during testing
+        // Create a middleware with max 1 retry
         $middleware = new RateLimitRetryMiddleware(1, true);
         $middlewareCallable = $middleware();
 
@@ -114,7 +114,7 @@ class RateLimitRetryMiddlewareTest extends TestCase
                     new Response(429, [
                         'x-ratelimit-limit' => '100',
                         'x-ratelimit-remaining' => '0',
-                        'x-ratelimit-reset' => '1', // 1 second for quick test
+                        'x-ratelimit-reset' => '0', // 0 seconds - use exponential backoff
                     ])
                 );
             }
@@ -124,13 +124,12 @@ class RateLimitRetryMiddlewareTest extends TestCase
 
         $wrappedHandler = $middlewareCallable($handler);
         $request = new Request('GET', 'https://api.example.com/test');
-
-        // This will sleep for 1 second due to the rate limit reset header
         $promise = $wrappedHandler($request, []);
 
-        // For promise-based code, we'd need to test differently
-        // The actual behavior is tested through integration tests
-        $this->assertTrue(is_object($promise));
+        // Wait for promise and verify final response is 200
+        $response = $promise->wait();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(2, $callCount, 'Handler should be called twice (initial + 1 retry)');
     }
 
     /**
@@ -165,6 +164,8 @@ class RateLimitRetryMiddlewareTest extends TestCase
 
     /**
      * Test exponential backoff without rate limit reset header
+     * Note: This test uses real sleep() calls for exponential backoff (1s, 2s)
+     * Use reset headers in production to avoid delays
      */
     public function testExponentialBackoffWithoutHeader()
     {
@@ -175,6 +176,10 @@ class RateLimitRetryMiddlewareTest extends TestCase
         $handler = function ($request, $options) use (&$callCount) {
             $callCount++;
 
+            // Return 429 for first 2 calls (triggers exponential backoff), then 200
+            // First 429: sleep(2^0) = 1 second
+            // Second 429: sleep(2^1) = 2 seconds
+            // Total test time ~3 seconds
             if ($callCount < 3) {
                 return \GuzzleHttp\Promise\promise_for(new Response(429));
             }
@@ -186,8 +191,10 @@ class RateLimitRetryMiddlewareTest extends TestCase
         $request = new Request('GET', 'https://api.example.com/test');
         $promise = $wrappedHandler($request, []);
 
-        // This would sleep with exponential backoff (1s, 2s) without the header
-        $this->assertTrue(is_object($promise));
+        // Wait for promise and verify final response is 200 after retries with backoff
+        $response = $promise->wait();
+        $this->assertEquals(200, $response->getStatusCode(), 'Should eventually return 200');
+        $this->assertEquals(3, $callCount, 'Handler should be called 3 times (initial + 2 retries)');
     }
 
     /**
@@ -201,7 +208,14 @@ class RateLimitRetryMiddlewareTest extends TestCase
         $callCount = 0;
         $handler = function ($request, $options) use (&$callCount) {
             $callCount++;
-            return \GuzzleHttp\Promise\promise_for(new Response(429));
+            // Always return 429 to test max retries enforcement
+            return \GuzzleHttp\Promise\promise_for(
+                new Response(429, [
+                    'x-ratelimit-limit' => '100',
+                    'x-ratelimit-remaining' => '0',
+                    'x-ratelimit-reset' => '0', // Use exponential backoff
+                ])
+            );
         };
 
         $wrappedHandler = $middlewareCallable($handler);
@@ -210,7 +224,9 @@ class RateLimitRetryMiddlewareTest extends TestCase
 
         $response = $promise->wait();
 
-        // Initial call + 2 retries = 3 calls max
-        $this->assertLessThanOrEqual(3, $callCount);
+        // With maxRetries=2: initial call + 2 retries = 3 calls total
+        // Response should be 429 (not retried anymore after limit)
+        $this->assertEquals(429, $response->getStatusCode(), 'Should return 429 after max retries exceeded');
+        $this->assertEquals(3, $callCount, 'Handler should be called exactly 3 times (initial + 2 retries)');
     }
 }

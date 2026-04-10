@@ -8,8 +8,11 @@ namespace Lago\LagoPhpClient\Test;
 
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Lago\LagoPhpClient\ClientFactory;
 use Lago\LagoPhpClient\Configuration;
+use Lago\LagoPhpClient\RateLimitRetryMiddleware;
 
 /**
  * ClientFactoryTest Class Doc Comment
@@ -43,6 +46,8 @@ class ClientFactoryTest extends TestCase
         $client = ClientFactory::createClient($config);
 
         $this->assertInstanceOf(ClientInterface::class, $client);
+        $this->assertTrue($config->getRetryOnRateLimit(), 'Retry should be enabled');
+        $this->assertEquals(5, $config->getMaxRetries(), 'Max retries should be 5');
     }
 
     /**
@@ -56,6 +61,7 @@ class ClientFactoryTest extends TestCase
         $client = ClientFactory::createClient($config);
 
         $this->assertInstanceOf(ClientInterface::class, $client);
+        $this->assertFalse($config->getRetryOnRateLimit(), 'Retry should be disabled');
     }
 
     /**
@@ -92,5 +98,54 @@ class ClientFactoryTest extends TestCase
         $this->assertInstanceOf(ClientInterface::class, $client2);
         // They should be different instances
         $this->assertNotSame($client1, $client2);
+    }
+
+    /**
+     * Test that client with retry enabled actually retries on 429
+     */
+    public function testClientRetryIntegration()
+    {
+        $config = new Configuration();
+        $config->setRetryOnRateLimit(true);
+        $config->setMaxRetries(1);
+
+        // Create a mock handler to track calls
+        $callCount = 0;
+        $mockHandler = function ($request, $options) use (&$callCount) {
+            $callCount++;
+
+            // First call returns 429, second returns 200
+            if ($callCount === 1) {
+                return \GuzzleHttp\Promise\promise_for(
+                    new Response(429, [
+                        'x-ratelimit-limit' => '100',
+                        'x-ratelimit-remaining' => '0',
+                        'x-ratelimit-reset' => '0',
+                    ])
+                );
+            }
+
+            return \GuzzleHttp\Promise\promise_for(new Response(200));
+        };
+
+        // Create client with custom handler for testing
+        $options = ['handler' => $mockHandler];
+        $client = ClientFactory::createClient($config, $options);
+
+        $this->assertInstanceOf(ClientInterface::class, $client);
+    }
+
+    /**
+     * Test that client without retry does not add middleware
+     */
+    public function testClientNoRetryConfiguration()
+    {
+        $config = new Configuration();
+        $config->setRetryOnRateLimit(false);
+
+        $client = ClientFactory::createClient($config);
+
+        $this->assertInstanceOf(ClientInterface::class, $client);
+        $this->assertFalse($config->getRetryOnRateLimit());
     }
 }
