@@ -453,18 +453,33 @@ class PaymentsApi
      * @param  int|null $page Page number. (optional)
      * @param  int|null $per_page Number of records per page. (optional)
      * @param  string|null $external_customer_id Unique identifier assigned to the customer in your application. (optional)
-     * @param  string|null $invoice_id Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice&#39;s record within the Lago system. (optional)
+     * @param  string|null $invoice_id Filter by the Lago invoice UUID, matching the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['findAllPayments'] to see the possible values for this operation
+     * @param  string[]|null $payment_status Filter by any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_status&#x3D;succeeded&#x60;, and this parameter takes precedence over &#x60;payment_statuses&#x60;. (optional)
+     * @param  string[]|null $payment_statuses Alias for &#x60;payment_status[]&#x60;, matching any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_statuses&#x3D;succeeded&#x60;, and it is ignored when &#x60;payment_status&#x60; is supplied. (optional)
+     * @param  int|null $amount_from Inclusive minimum payment amount in integer cents, from 0 through 9223372036854775807; it must not exceed &#x60;amount_to&#x60; when both bounds are supplied. (optional)
+     * @param  int|null $amount_to Inclusive maximum payment amount in integer cents, from 0 through 9223372036854775807; set it equal to &#x60;amount_from&#x60; to match an exact amount. (optional)
+     * @param  string|null $receipt_number Filter by an exact, case-insensitive payment receipt number of at most 255 characters; payments without a receipt do not match. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
+     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
+     * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
+     * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
+     * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
+     * @param  string[]|null $payable_type Filter by either &#x60;Invoice&#x60; or &#x60;PaymentRequest&#x60;, matching any supplied payable type; a single value can also be sent as &#x60;payable_type&#x3D;PaymentRequest&#x60;. (optional)
+     * @param  string|null $search_term Search case-insensitively within provider payment IDs, references, payment UUIDs, directly payable invoice numbers and customer name, first name, last name, external ID or email; receipt numbers use their own exact filter. (optional)
      *
      * @throws \Lago\LagoPhpClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Lago\LagoPhpClient\Model\PaymentsPaginated|\Lago\LagoPhpClient\Model\ApiErrorUnauthorized
+     * @return \Lago\LagoPhpClient\Model\PaymentsPaginated|\Lago\LagoPhpClient\Model\ApiErrorUnauthorized|\Lago\LagoPhpClient\Model\ApiErrorUnprocessableEntity
      */
-    public function findAllPayments($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0])
+    public function findAllPayments($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
-        list($response) = $this->findAllPaymentsWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType);
+        list($response) = $this->findAllPaymentsWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
         return $response;
     }
+
 
     /**
      * Operation findAllPaymentsWithHttpInfo
@@ -474,16 +489,30 @@ class PaymentsApi
      * @param  int|null $page Page number. (optional)
      * @param  int|null $per_page Number of records per page. (optional)
      * @param  string|null $external_customer_id Unique identifier assigned to the customer in your application. (optional)
-     * @param  string|null $invoice_id Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice&#39;s record within the Lago system. (optional)
+     * @param  string|null $invoice_id Filter by the Lago invoice UUID, matching the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['findAllPayments'] to see the possible values for this operation
+     * @param  string[]|null $payment_status Filter by any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_status&#x3D;succeeded&#x60;, and this parameter takes precedence over &#x60;payment_statuses&#x60;. (optional)
+     * @param  string[]|null $payment_statuses Alias for &#x60;payment_status[]&#x60;, matching any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_statuses&#x3D;succeeded&#x60;, and it is ignored when &#x60;payment_status&#x60; is supplied. (optional)
+     * @param  int|null $amount_from Inclusive minimum payment amount in integer cents, from 0 through 9223372036854775807; it must not exceed &#x60;amount_to&#x60; when both bounds are supplied. (optional)
+     * @param  int|null $amount_to Inclusive maximum payment amount in integer cents, from 0 through 9223372036854775807; set it equal to &#x60;amount_from&#x60; to match an exact amount. (optional)
+     * @param  string|null $receipt_number Filter by an exact, case-insensitive payment receipt number of at most 255 characters; payments without a receipt do not match. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
+     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
+     * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
+     * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
+     * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
+     * @param  string[]|null $payable_type Filter by either &#x60;Invoice&#x60; or &#x60;PaymentRequest&#x60;, matching any supplied payable type; a single value can also be sent as &#x60;payable_type&#x3D;PaymentRequest&#x60;. (optional)
+     * @param  string|null $search_term Search case-insensitively within provider payment IDs, references, payment UUIDs, directly payable invoice numbers and customer name, first name, last name, external ID or email; receipt numbers use their own exact filter. (optional)
      *
      * @throws \Lago\LagoPhpClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Lago\LagoPhpClient\Model\PaymentsPaginated|\Lago\LagoPhpClient\Model\ApiErrorUnauthorized, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Lago\LagoPhpClient\Model\PaymentsPaginated|\Lago\LagoPhpClient\Model\ApiErrorUnauthorized|\Lago\LagoPhpClient\Model\ApiErrorUnprocessableEntity, HTTP status code, HTTP response headers (array of strings)
      */
-    public function findAllPaymentsWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0])
+    public function findAllPaymentsWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
-        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType);
+        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
 
         try {
             $options = $this->createHttpClientOption();
@@ -521,9 +550,15 @@ class PaymentsApi
                         $request,
                         $response,
                     );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Lago\LagoPhpClient\Model\ApiErrorUnprocessableEntity',
+                        $request,
+                        $response,
+                    );
             }
 
-            
+
 
             if ($statusCode < 200 || $statusCode > 299) {
                 throw new ApiException(
@@ -561,12 +596,21 @@ class PaymentsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Lago\LagoPhpClient\Model\ApiErrorUnprocessableEntity',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
-        
+
 
             throw $e;
         }
     }
+
 
     /**
      * Operation findAllPaymentsAsync
@@ -576,21 +620,36 @@ class PaymentsApi
      * @param  int|null $page Page number. (optional)
      * @param  int|null $per_page Number of records per page. (optional)
      * @param  string|null $external_customer_id Unique identifier assigned to the customer in your application. (optional)
-     * @param  string|null $invoice_id Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice&#39;s record within the Lago system. (optional)
+     * @param  string|null $invoice_id Filter by the Lago invoice UUID, matching the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['findAllPayments'] to see the possible values for this operation
+     * @param  string[]|null $payment_status Filter by any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_status&#x3D;succeeded&#x60;, and this parameter takes precedence over &#x60;payment_statuses&#x60;. (optional)
+     * @param  string[]|null $payment_statuses Alias for &#x60;payment_status[]&#x60;, matching any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_statuses&#x3D;succeeded&#x60;, and it is ignored when &#x60;payment_status&#x60; is supplied. (optional)
+     * @param  int|null $amount_from Inclusive minimum payment amount in integer cents, from 0 through 9223372036854775807; it must not exceed &#x60;amount_to&#x60; when both bounds are supplied. (optional)
+     * @param  int|null $amount_to Inclusive maximum payment amount in integer cents, from 0 through 9223372036854775807; set it equal to &#x60;amount_from&#x60; to match an exact amount. (optional)
+     * @param  string|null $receipt_number Filter by an exact, case-insensitive payment receipt number of at most 255 characters; payments without a receipt do not match. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
+     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
+     * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
+     * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
+     * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
+     * @param  string[]|null $payable_type Filter by either &#x60;Invoice&#x60; or &#x60;PaymentRequest&#x60;, matching any supplied payable type; a single value can also be sent as &#x60;payable_type&#x3D;PaymentRequest&#x60;. (optional)
+     * @param  string|null $search_term Search case-insensitively within provider payment IDs, references, payment UUIDs, directly payable invoice numbers and customer name, first name, last name, external ID or email; receipt numbers use their own exact filter. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function findAllPaymentsAsync($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0])
+    public function findAllPaymentsAsync($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
-        return $this->findAllPaymentsAsyncWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType)
+        return $this->findAllPaymentsAsyncWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term)
             ->then(
                 function ($response) {
                     return $response[0];
                 }
             );
     }
+
 
     /**
      * Operation findAllPaymentsAsyncWithHttpInfo
@@ -600,16 +659,30 @@ class PaymentsApi
      * @param  int|null $page Page number. (optional)
      * @param  int|null $per_page Number of records per page. (optional)
      * @param  string|null $external_customer_id Unique identifier assigned to the customer in your application. (optional)
-     * @param  string|null $invoice_id Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice&#39;s record within the Lago system. (optional)
+     * @param  string|null $invoice_id Filter by the Lago invoice UUID, matching the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['findAllPayments'] to see the possible values for this operation
+     * @param  string[]|null $payment_status Filter by any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_status&#x3D;succeeded&#x60;, and this parameter takes precedence over &#x60;payment_statuses&#x60;. (optional)
+     * @param  string[]|null $payment_statuses Alias for &#x60;payment_status[]&#x60;, matching any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_statuses&#x3D;succeeded&#x60;, and it is ignored when &#x60;payment_status&#x60; is supplied. (optional)
+     * @param  int|null $amount_from Inclusive minimum payment amount in integer cents, from 0 through 9223372036854775807; it must not exceed &#x60;amount_to&#x60; when both bounds are supplied. (optional)
+     * @param  int|null $amount_to Inclusive maximum payment amount in integer cents, from 0 through 9223372036854775807; set it equal to &#x60;amount_from&#x60; to match an exact amount. (optional)
+     * @param  string|null $receipt_number Filter by an exact, case-insensitive payment receipt number of at most 255 characters; payments without a receipt do not match. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
+     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
+     * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
+     * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
+     * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
+     * @param  string[]|null $payable_type Filter by either &#x60;Invoice&#x60; or &#x60;PaymentRequest&#x60;, matching any supplied payable type; a single value can also be sent as &#x60;payable_type&#x3D;PaymentRequest&#x60;. (optional)
+     * @param  string|null $search_term Search case-insensitively within provider payment IDs, references, payment UUIDs, directly payable invoice numbers and customer name, first name, last name, external ID or email; receipt numbers use their own exact filter. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function findAllPaymentsAsyncWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0])
+    public function findAllPaymentsAsyncWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
         $returnType = '\Lago\LagoPhpClient\Model\PaymentsPaginated';
-        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType);
+        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -647,21 +720,62 @@ class PaymentsApi
             );
     }
 
+
     /**
      * Create request for operation 'findAllPayments'
      *
      * @param  int|null $page Page number. (optional)
      * @param  int|null $per_page Number of records per page. (optional)
      * @param  string|null $external_customer_id Unique identifier assigned to the customer in your application. (optional)
-     * @param  string|null $invoice_id Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice&#39;s record within the Lago system. (optional)
+     * @param  string|null $invoice_id Filter by the Lago invoice UUID, matching the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['findAllPayments'] to see the possible values for this operation
+     * @param  string[]|null $payment_status Filter by any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_status&#x3D;succeeded&#x60;, and this parameter takes precedence over &#x60;payment_statuses&#x60;. (optional)
+     * @param  string[]|null $payment_statuses Alias for &#x60;payment_status[]&#x60;, matching any of &#x60;pending&#x60;, &#x60;processing&#x60;, &#x60;succeeded&#x60; or &#x60;failed&#x60;; a single value can also be sent as &#x60;payment_statuses&#x3D;succeeded&#x60;, and it is ignored when &#x60;payment_status&#x60; is supplied. (optional)
+     * @param  int|null $amount_from Inclusive minimum payment amount in integer cents, from 0 through 9223372036854775807; it must not exceed &#x60;amount_to&#x60; when both bounds are supplied. (optional)
+     * @param  int|null $amount_to Inclusive maximum payment amount in integer cents, from 0 through 9223372036854775807; set it equal to &#x60;amount_from&#x60; to match an exact amount. (optional)
+     * @param  string|null $receipt_number Filter by an exact, case-insensitive payment receipt number of at most 255 characters; payments without a receipt do not match. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
+     * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
+     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
+     * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
+     * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
+     * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
+     * @param  string[]|null $payable_type Filter by either &#x60;Invoice&#x60; or &#x60;PaymentRequest&#x60;, matching any supplied payable type; a single value can also be sent as &#x60;payable_type&#x3D;PaymentRequest&#x60;. (optional)
+     * @param  string|null $search_term Search case-insensitively within provider payment IDs, references, payment UUIDs, directly payable invoice numbers and customer name, first name, last name, external ID or email; receipt numbers use their own exact filter. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function findAllPaymentsRequest($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0])
+    public function findAllPaymentsRequest($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
 
+
+
+
+
+
+
+        if ($amount_from !== null && $amount_from < 0) {
+            throw new \InvalidArgumentException('invalid value for "$amount_from" when calling PaymentsApi.findAllPayments, must be bigger than or equal to 0.');
+        }
+
+        if ($amount_to !== null && $amount_to < 0) {
+            throw new \InvalidArgumentException('invalid value for "$amount_to" when calling PaymentsApi.findAllPayments, must be bigger than or equal to 0.');
+        }
+
+        if ($receipt_number !== null && strlen($receipt_number) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$receipt_number" when calling PaymentsApi.findAllPayments, must be smaller than or equal to 255.');
+        }
+
+
+
+
+
+
+        if ($invoice_number !== null && strlen($invoice_number) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$invoice_number" when calling PaymentsApi.findAllPayments, must be smaller than or equal to 255.');
+        }
 
 
 
@@ -705,6 +819,132 @@ class PaymentsApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $invoice_id,
             'invoice_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $payment_status,
+            'payment_status[]', // param base name
+            'array', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $payment_statuses,
+            'payment_statuses[]', // param base name
+            'array', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $amount_from,
+            'amount_from', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $amount_to,
+            'amount_to', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $receipt_number,
+            'receipt_number', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $created_at_from instanceof \DateTimeInterface ? $created_at_from->format('Y-m-d') : $created_at_from,
+            'created_at_from', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $created_at_to instanceof \DateTimeInterface ? $created_at_to->format('Y-m-d') : $created_at_to,
+            'created_at_to', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $payment_provider_type,
+            'payment_provider_type[]', // param base name
+            'array', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $payment_method_type,
+            'payment_method_type[]', // param base name
+            'array', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $currency,
+            'currency', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $invoice_number,
+            'invoice_number', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $payment_type,
+            'payment_type[]', // param base name
+            'array', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $payable_type,
+            'payable_type[]', // param base name
+            'array', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $search_term,
+            'search_term', // param base name
             'string', // openApiType
             'form', // style
             true, // explode
@@ -770,6 +1010,7 @@ class PaymentsApi
             $httpBody
         );
     }
+
 
     /**
      * Operation findPayment
