@@ -78,7 +78,7 @@ class DefaultApiTest extends TestCase
      * A new alert was triggered.
      *
      */
-    public function test()
+    public function testAlertTriggered()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -90,7 +90,7 @@ class DefaultApiTest extends TestCase
      * A new credit note has been created.
      *
      */
-    public function test()
+    public function testCreditNoteCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -102,7 +102,7 @@ class DefaultApiTest extends TestCase
      * A new credit note PDF has been generated.
      *
      */
-    public function test()
+    public function testCreditNoteGenerated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -114,7 +114,7 @@ class DefaultApiTest extends TestCase
      * The refund of a credit note has failed on a payment provider.
      *
      */
-    public function test()
+    public function testCreditNoteProviderRefundFailure()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -126,7 +126,7 @@ class DefaultApiTest extends TestCase
      * A customer was created on an accouting integration.
      *
      */
-    public function test()
+    public function testCustomerAccountingProviderCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -138,7 +138,7 @@ class DefaultApiTest extends TestCase
      * An error was encountered while syncing a customer to an accounting provider.
      *
      */
-    public function test()
+    public function testCustomerAccountingProviderError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -150,7 +150,7 @@ class DefaultApiTest extends TestCase
      * A checkout URL was generated for a customer.
      *
      */
-    public function test()
+    public function testCustomerCheckoutUrlGenerated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -162,7 +162,7 @@ class DefaultApiTest extends TestCase
      * A new customer has been created.
      *
      */
-    public function test()
+    public function testCustomerCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -174,7 +174,7 @@ class DefaultApiTest extends TestCase
      * A customer has been created in the CRM provider.
      *
      */
-    public function test()
+    public function testCustomerCrmProviderCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -186,7 +186,7 @@ class DefaultApiTest extends TestCase
      * An error was encountered while syncing a customer to a CRM provider.
      *
      */
-    public function test()
+    public function testCustomerCrmProviderError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -198,7 +198,7 @@ class DefaultApiTest extends TestCase
      * A customer has been created on a payment provider.
      *
      */
-    public function test()
+    public function testCustomerPaymentProviderCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -210,7 +210,7 @@ class DefaultApiTest extends TestCase
      * An error was encountered while syncing a customer to a payment provider.
      *
      */
-    public function test()
+    public function testCustomerPaymentProviderError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -222,7 +222,7 @@ class DefaultApiTest extends TestCase
      * An error was encountered while fetching taxes for a customer on a tax provider.
      *
      */
-    public function test()
+    public function testCustomerTaxProviderError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -234,7 +234,7 @@ class DefaultApiTest extends TestCase
      * A customer has been updated.
      *
      */
-    public function test()
+    public function testCustomerUpdated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -246,7 +246,7 @@ class DefaultApiTest extends TestCase
      * VIES VAT number has been checked for a customer.
      *
      */
-    public function test()
+    public function testCustomerViesCheck()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -258,7 +258,7 @@ class DefaultApiTest extends TestCase
      * An error has been detected on an event.
      *
      */
-    public function test()
+    public function testEventError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -270,7 +270,7 @@ class DefaultApiTest extends TestCase
      * Errors were encountered while post-processing some events.
      *
      */
-    public function test()
+    public function testEventsErrors()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -282,7 +282,7 @@ class DefaultApiTest extends TestCase
      * A pay in advance fee has been created.
      *
      */
-    public function test()
+    public function testFeeCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -294,7 +294,7 @@ class DefaultApiTest extends TestCase
      * An error was encountered while fetching taxes for a fee on a tax provider.
      *
      */
-    public function test()
+    public function testFeeTaxProviderError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -306,7 +306,7 @@ class DefaultApiTest extends TestCase
      * An error was encountered while processing data on an integration.
      *
      */
-    public function test()
+    public function testIntegrationProviderError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -318,7 +318,7 @@ class DefaultApiTest extends TestCase
      * A new add on invoice has been emitted.
      *
      */
-    public function test()
+    public function testInvoiceAddOnAdded()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -330,7 +330,7 @@ class DefaultApiTest extends TestCase
      * A new invoice has been emitted.
      *
      */
-    public function test()
+    public function testInvoiceCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -342,7 +342,7 @@ class DefaultApiTest extends TestCase
      * A new draft invoice has been emitted.
      *
      */
-    public function test()
+    public function testInvoiceDrafted()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -354,7 +354,7 @@ class DefaultApiTest extends TestCase
      * A new invoice PDF has been generated.
      *
      */
-    public function test()
+    public function testInvoiceGenerated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -366,7 +366,7 @@ class DefaultApiTest extends TestCase
      * A new one off invoice has been emitted.
      *
      */
-    public function test()
+    public function testInvoiceOneOffCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -378,7 +378,7 @@ class DefaultApiTest extends TestCase
      * A new prepaid credit invoice has been emitted.
      *
      */
-    public function test()
+    public function testInvoicePaidCreditAdded()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -390,7 +390,7 @@ class DefaultApiTest extends TestCase
      * A payment dispute has been lost for an invoice payment.
      *
      */
-    public function test()
+    public function testInvoicePaymentDisputeLost()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -402,7 +402,7 @@ class DefaultApiTest extends TestCase
      * A payment attempt for an invoice has failed on a payment provider.
      *
      */
-    public function test()
+    public function testInvoicePaymentFailure()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -414,7 +414,7 @@ class DefaultApiTest extends TestCase
      * An invoice payment is overdue.
      *
      */
-    public function test()
+    public function testInvoicePaymentOverdue()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -426,7 +426,7 @@ class DefaultApiTest extends TestCase
      * The payment status of an invoice has been updated.
      *
      */
-    public function test()
+    public function testInvoicePaymentStatusUpdated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -438,7 +438,7 @@ class DefaultApiTest extends TestCase
      * An invoice has been resynced with salesforce.
      *
      */
-    public function test()
+    public function testInvoiceResynced()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -450,7 +450,7 @@ class DefaultApiTest extends TestCase
      * An invoice has been voided.
      *
      */
-    public function test()
+    public function testInvoiceVoided()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -462,7 +462,7 @@ class DefaultApiTest extends TestCase
      * An error was raised by a payment provider.
      *
      */
-    public function test()
+    public function testPaymentProviderError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -474,7 +474,7 @@ class DefaultApiTest extends TestCase
      * An new payment request has been created.
      *
      */
-    public function test()
+    public function testPaymentRequestCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -486,7 +486,7 @@ class DefaultApiTest extends TestCase
      * A payment attempt for a payment request has failed on a payment provider.
      *
      */
-    public function test()
+    public function testPaymentRequestPaymentFailure()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -498,7 +498,7 @@ class DefaultApiTest extends TestCase
      * The payment status of an invoice has been updated.
      *
      */
-    public function test()
+    public function testPaymentRequestPaymentStatusUpdated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -510,7 +510,7 @@ class DefaultApiTest extends TestCase
      * An action is required to process a payment.
      *
      */
-    public function test()
+    public function testPaymentRequiresAction()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -522,7 +522,7 @@ class DefaultApiTest extends TestCase
      * A new plan has been created.
      *
      */
-    public function test()
+    public function testPlanCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -534,7 +534,7 @@ class DefaultApiTest extends TestCase
      * A plan has been deleted.
      *
      */
-    public function test()
+    public function testPlanDeleted()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -546,7 +546,7 @@ class DefaultApiTest extends TestCase
      * A plan has been updated.
      *
      */
-    public function test()
+    public function testPlanUpdated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -558,7 +558,7 @@ class DefaultApiTest extends TestCase
      * An subscription has started.
      *
      */
-    public function test()
+    public function testSubscriptionStarted()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -570,7 +570,7 @@ class DefaultApiTest extends TestCase
      * A subscription has been terminated.
      *
      */
-    public function test()
+    public function testSubscriptionTerminated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -582,7 +582,7 @@ class DefaultApiTest extends TestCase
      * A subscription will be terminated in the future.
      *
      */
-    public function test()
+    public function testSubscriptionTerminationAlert()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -594,7 +594,7 @@ class DefaultApiTest extends TestCase
      * A subscription trial period has ended.
      *
      */
-    public function test()
+    public function testSubscriptionTrialEnded()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -606,7 +606,7 @@ class DefaultApiTest extends TestCase
      * A usage threshold has been reached by a subscription.
      *
      */
-    public function test()
+    public function testSubscriptionUsageThresholdReached()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -618,7 +618,7 @@ class DefaultApiTest extends TestCase
      * The balance of a wallet has been depleted.
      *
      */
-    public function test()
+    public function testWalletDepletedOngoingBalance()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -630,7 +630,7 @@ class DefaultApiTest extends TestCase
      * A new wallet transaction has been created.
      *
      */
-    public function test()
+    public function testWalletTransactionCreated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -642,7 +642,7 @@ class DefaultApiTest extends TestCase
      * A payment attempt for a wallet transaction has failed on a payment provider.
      *
      */
-    public function test()
+    public function testWalletTransactionPaymentFailure()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
@@ -654,7 +654,7 @@ class DefaultApiTest extends TestCase
      * A wallet transaction has been updated.
      *
      */
-    public function test()
+    public function testWalletTransactionUpdated()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
