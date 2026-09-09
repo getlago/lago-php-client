@@ -581,7 +581,7 @@ try {
 ## `findAllCustomerPayments()`
 
 ```php
-findAllCustomerPayments($external_customer_id, $page, $per_page, $invoice_id, 'application/json', $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term): \Lago\LagoPhpClient\Model\PaymentsPaginated
+findAllCustomerPayments($external_customer_id, $page, $per_page, $invoice_id, 'application/json', $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term): \Lago\LagoPhpClient\Model\PaymentsPaginated
 ```
 
 List all customer's payments
@@ -617,7 +617,6 @@ $receipt_number = rcpt-2026-0001; // string | Filter by an exact, case-insensiti
 $created_at_from = 2026-09-01; // \DateTime | Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored.
 $created_at_to = 2026-09-07; // \DateTime | Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored.
 $payment_provider_type = [stripe]; // string[] | Filter by any of `stripe`, `gocardless`, `cashfree`, `adyen`, `flutterwave` or `moneyhash`; a single value can also be sent as `payment_provider_type=stripe`.
-$payment_method_type = [card, sepa_debit]; // string[] | Filter by any of `card`, `sepa_debit`, `us_bank_account`, `bacs_debit`, `link`, `boleto`, `crypto` or `customer_balance`, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as `payment_method_type=card`.
 $currency = EUR; // string | Filter the results by currency, expressed as an ISO 4217 code.
 $invoice_number = LAG-1234-001-002; // string | Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request.
 $payment_type = [manual]; // string[] | Filter by either `manual` or `provider`, matching any supplied type; a single value can also be sent as `payment_type=manual`.
@@ -625,7 +624,7 @@ $payable_type = [PaymentRequest]; // string[] | Filter by either `Invoice` or `P
 $search_term = pi_3; // string | Search case-insensitively within provider payment IDs, references, payment UUIDs, directly payable invoice numbers and customer name, first name, last name, external ID or email; receipt numbers use their own exact filter.
 
 try {
-    $result = $apiInstance->findAllCustomerPayments($external_customer_id, $page, $per_page, $invoice_id, 'application/json', $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
+    $result = $apiInstance->findAllCustomerPayments($external_customer_id, $page, $per_page, $invoice_id, 'application/json', $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->findAllCustomerPayments: ', $e->getMessage(), PHP_EOL;
@@ -648,7 +647,6 @@ try {
 | **created_at_from** | **\DateTime**| Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. | [optional] |
 | **created_at_to** | **\DateTime**| Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. | [optional] |
 | **payment_provider_type** | [**string[]**](../Model/string.md)| Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. | [optional] |
-| **payment_method_type** | [**string[]**](../Model/string.md)| Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. | [optional] |
 | **currency** | **string**| Filter the results by currency, expressed as an ISO 4217 code. | [optional] |
 | **invoice_number** | **string**| Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. | [optional] |
 | **payment_type** | [**string[]**](../Model/string.md)| Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. | [optional] |

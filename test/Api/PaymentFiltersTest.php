@@ -39,7 +39,6 @@ class PaymentFiltersTest extends TestCase
                 'created_at_from' => new \DateTimeImmutable('2026-09-01'),
                 'created_at_to' => new \DateTime('2026-09-07'),
                 'payment_provider_type' => ['stripe', 'gocardless'],
-                'payment_method_type' => ['card', 'sepa_debit'],
                 'currency' => 'EUR',
                 'invoice_number' => 'LAG & +/#2',
                 'payment_type' => ['manual', 'provider'],
@@ -70,7 +69,7 @@ class PaymentFiltersTest extends TestCase
                 self::assertSame(array_map('strval', (array) $value), $pairs[$wireKey], $wireKey);
             }
             self::assertSame(['9223372036854775807'], $pairs['amount_to']);
-            self::assertCount($customerScoped ? 17 : 18, $pairs);
+            self::assertCount($customerScoped ? 16 : 17, $pairs);
         }
     }
 

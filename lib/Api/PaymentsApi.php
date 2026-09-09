@@ -463,7 +463,6 @@ class PaymentsApi
      * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
-     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
      * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
      * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
@@ -474,9 +473,9 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return \Lago\LagoPhpClient\Model\PaymentsPaginated|\Lago\LagoPhpClient\Model\ApiErrorUnauthorized|\Lago\LagoPhpClient\Model\ApiErrorUnprocessableEntity
      */
-    public function findAllPayments($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
+    public function findAllPayments($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
-        list($response) = $this->findAllPaymentsWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
+        list($response) = $this->findAllPaymentsWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
         return $response;
     }
 
@@ -499,7 +498,6 @@ class PaymentsApi
      * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
-     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
      * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
      * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
@@ -510,9 +508,9 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return array of \Lago\LagoPhpClient\Model\PaymentsPaginated|\Lago\LagoPhpClient\Model\ApiErrorUnauthorized|\Lago\LagoPhpClient\Model\ApiErrorUnprocessableEntity, HTTP status code, HTTP response headers (array of strings)
      */
-    public function findAllPaymentsWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
+    public function findAllPaymentsWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
-        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
+        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
 
         try {
             $options = $this->createHttpClientOption();
@@ -630,7 +628,6 @@ class PaymentsApi
      * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
-     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
      * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
      * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
@@ -640,9 +637,9 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function findAllPaymentsAsync($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
+    public function findAllPaymentsAsync($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
-        return $this->findAllPaymentsAsyncWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term)
+        return $this->findAllPaymentsAsyncWithHttpInfo($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -669,7 +666,6 @@ class PaymentsApi
      * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
-     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
      * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
      * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
@@ -679,10 +675,10 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function findAllPaymentsAsyncWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
+    public function findAllPaymentsAsyncWithHttpInfo($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
         $returnType = '\Lago\LagoPhpClient\Model\PaymentsPaginated';
-        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $payment_method_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
+        $request = $this->findAllPaymentsRequest($page, $per_page, $external_customer_id, $invoice_id, $contentType, $payment_status, $payment_statuses, $amount_from, $amount_to, $receipt_number, $created_at_from, $created_at_to, $payment_provider_type, $currency, $invoice_number, $payment_type, $payable_type, $search_term);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -737,7 +733,6 @@ class PaymentsApi
      * @param  \DateTimeInterface|string|null $created_at_from Filter payments created on or after this ISO-8601 date, inclusive from the start of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  \DateTimeInterface|string|null $created_at_to Filter payments created on or before this ISO-8601 date, inclusive through the end of the day in the organization timezone; invalid dates are ignored. (optional)
      * @param  string[]|null $payment_provider_type Filter by any of &#x60;stripe&#x60;, &#x60;gocardless&#x60;, &#x60;cashfree&#x60;, &#x60;adyen&#x60;, &#x60;flutterwave&#x60; or &#x60;moneyhash&#x60;; a single value can also be sent as &#x60;payment_provider_type&#x3D;stripe&#x60;. (optional)
-     * @param  string[]|null $payment_method_type Filter by any of &#x60;card&#x60;, &#x60;sepa_debit&#x60;, &#x60;us_bank_account&#x60;, &#x60;bacs_debit&#x60;, &#x60;link&#x60;, &#x60;boleto&#x60;, &#x60;crypto&#x60; or &#x60;customer_balance&#x60;, using the payment provider method data and falling back to the saved payment method when its type is empty; a single value can also be sent as &#x60;payment_method_type&#x3D;card&#x60;. (optional)
      * @param  string|null $currency Filter the results by currency, expressed as an ISO 4217 code. (optional)
      * @param  string|null $invoice_number Filter by an exact, case-insensitive invoice number of at most 255 characters, matching either the directly payable invoice or any invoice covered by a payment request. (optional)
      * @param  string[]|null $payment_type Filter by either &#x60;manual&#x60; or &#x60;provider&#x60;, matching any supplied type; a single value can also be sent as &#x60;payment_type&#x3D;manual&#x60;. (optional)
@@ -747,7 +742,7 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function findAllPaymentsRequest($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $payment_method_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
+    public function findAllPaymentsRequest($page = null, $per_page = null, $external_customer_id = null, $invoice_id = null, string $contentType = self::contentTypes['findAllPayments'][0], $payment_status = null, $payment_statuses = null, $amount_from = null, $amount_to = null, $receipt_number = null, $created_at_from = null, $created_at_to = null, $payment_provider_type = null, $currency = null, $invoice_number = null, $payment_type = null, $payable_type = null, $search_term = null)
     {
 
 
@@ -767,7 +762,6 @@ class PaymentsApi
         if ($receipt_number !== null && strlen($receipt_number) > 255) {
             throw new \InvalidArgumentException('invalid length for "$receipt_number" when calling PaymentsApi.findAllPayments, must be smaller than or equal to 255.');
         }
-
 
 
 
@@ -891,15 +885,6 @@ class PaymentsApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $payment_provider_type,
             'payment_provider_type[]', // param base name
-            'array', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $payment_method_type,
-            'payment_method_type[]', // param base name
             'array', // openApiType
             'form', // style
             true, // explode

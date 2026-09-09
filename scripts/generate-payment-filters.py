@@ -32,7 +32,7 @@ def method_blocks(source, operation, allow_missing=False):
 def preserve_content_type(block, operation):
     def reorder(match):
         args = match[2].split(", ")
-        if len(args) != 19 or "$contentType" not in args[-1]:
+        if len(args) != 18 or "$contentType" not in args[-1]:
             raise RuntimeError("Generated payment argument signature changed")
         args.insert(4, args.pop())
         return match[1] + ", ".join(args) + ")"
